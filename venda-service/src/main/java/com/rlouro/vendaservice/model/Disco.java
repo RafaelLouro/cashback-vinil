@@ -1,5 +1,7 @@
 package com.rlouro.vendaservice.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +15,9 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "DISCO")
-public class Disco {
+public class Disco implements Serializable {
+
+	private static final long serialVersionUID = 307857694331505019L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,4 +34,36 @@ public class Disco {
 	@JoinColumn(name = "GE_ID", nullable = false)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Genero genero;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+
+	public Genero getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Genero genero) {
+		this.genero = genero;
+	}
 }

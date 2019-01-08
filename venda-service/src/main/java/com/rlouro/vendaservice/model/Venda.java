@@ -1,5 +1,6 @@
 package com.rlouro.vendaservice.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "VENDA")
-public class Venda {
+public class Venda implements Serializable {
+
+	private static final long serialVersionUID = 324722852598849409L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

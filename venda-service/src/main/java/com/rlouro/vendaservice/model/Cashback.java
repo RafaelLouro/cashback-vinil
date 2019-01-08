@@ -1,5 +1,6 @@
 package com.rlouro.vendaservice.model;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 
 import javax.persistence.Column;
@@ -14,7 +15,9 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "CASHBACK")
-public class Cashback {
+public class Cashback implements Serializable {
+
+	private static final long serialVersionUID = 2066603960607520531L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
