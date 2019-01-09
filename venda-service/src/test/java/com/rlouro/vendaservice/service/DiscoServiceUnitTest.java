@@ -16,6 +16,7 @@ import com.rlouro.vendaservice.dto.DiscoDTO;
 import com.rlouro.vendaservice.model.Disco;
 import com.rlouro.vendaservice.model.Genero;
 import com.rlouro.vendaservice.repository.DiscoRepository;
+import com.rlouro.vendaservice.service.impl.BaseService;
 import com.rlouro.vendaservice.service.impl.DiscoService;
 
 public class DiscoServiceUnitTest extends BaseUnitTest {
@@ -30,11 +31,7 @@ public class DiscoServiceUnitTest extends BaseUnitTest {
 
 	@Before
 	public void setup() {
-		disco = new Disco();
-		disco.setId(ID_TEST);
-		disco.setNome("test1");
-		disco.setPreco(10.0);
-		disco.setGenero(new Genero(ID_TEST, "Genero 1"));
+		disco = new Disco(ID_TEST, "test1", 10.0, new Genero(ID_TEST, "Genero 1"));
 	}
 
 	@Test
@@ -45,8 +42,8 @@ public class DiscoServiceUnitTest extends BaseUnitTest {
 
 		assertNotNull(returned);
 		assertNotNull(returned.getId());
-		assertEquals(disco.getGenero().getNome(), returned.getGenero());
-		
+		assertEquals(disco.getGenero().getNome(), returned.getNomeGenero());
+
 	}
 
 	@Test
@@ -70,7 +67,7 @@ public class DiscoServiceUnitTest extends BaseUnitTest {
 	@Test
 	public void findByIdDiscoIdNulo() {
 		exception.expect(IllegalArgumentException.class);
-		exception.expectMessage(discoService.GET_ID_NAO_INFORMADO_MESSAGE);
+		exception.expectMessage(BaseService.GET_ID_NAO_INFORMADO_MESSAGE);
 
 		discoService.findById(null);
 	}
