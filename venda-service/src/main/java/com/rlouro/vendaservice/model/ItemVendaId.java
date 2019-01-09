@@ -32,4 +32,12 @@ public class ItemVendaId implements Serializable {
 		this.discoId = discoId;
 	}
 
+	public ItemVendaId() {
+	}
+
+	public ItemVendaId(Long vendaId, Long discoId) {
+		this.vendaId = vendaId;
+		this.discoId = discoId;
+	}
+
 }

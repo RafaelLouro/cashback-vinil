@@ -5,14 +5,14 @@ import java.util.List;
 
 public class VendaDTO extends VendaBasicDTO {
 
-	private List<DiscoBasicDTO> itemList = new ArrayList<>();
+	private List<DiscoBasicDTO> discos = new ArrayList<>();
 
-	public List<DiscoBasicDTO> getItemList() {
-		return itemList;
+	public List<DiscoBasicDTO> getDiscos() {
+		return discos;
 	}
 
-	public void setItemList(List<DiscoBasicDTO> itemList) {
-		this.itemList = itemList;
+	public void setDiscos(List<DiscoBasicDTO> discos) {
+		this.discos = discos;
 	}
 
 }

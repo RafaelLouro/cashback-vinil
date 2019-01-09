@@ -66,4 +66,14 @@ public class Disco implements Serializable {
 	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
+
+	public Disco() {
+	}
+
+	public Disco(Long id, @Size(max = 50) String nome, Double preco, Genero genero) {
+		this.id = id;
+		this.nome = nome;
+		this.preco = preco;
+		this.genero = genero;
+	}
 }

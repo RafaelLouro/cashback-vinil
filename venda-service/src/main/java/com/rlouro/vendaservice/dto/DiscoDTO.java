@@ -2,14 +2,14 @@ package com.rlouro.vendaservice.dto;
 
 public class DiscoDTO extends DiscoBasicDTO {
 
-	private String genero;
+	private String nomeGenero;
 
-	public String getGenero() {
-		return genero;
+	public String getNomeGenero() {
+		return nomeGenero;
 	}
 
-	public void setGenero(String genero) {
-		this.genero = genero;
+	public void setNomeGenero(String nomeGenero) {
+		this.nomeGenero = nomeGenero;
 	}
 
 }

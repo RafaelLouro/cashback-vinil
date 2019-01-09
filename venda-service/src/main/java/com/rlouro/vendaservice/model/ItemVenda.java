@@ -62,4 +62,14 @@ public class ItemVenda implements Serializable {
 		this.cashback = cashback;
 	}
 
+	public ItemVenda() {
+	}
+
+	public ItemVenda(ItemVendaId id, Venda venda, Disco disco, Double cashback) {
+		this.id = id;
+		this.venda = venda;
+		this.disco = disco;
+		this.cashback = cashback;
+	}
+
 }

@@ -88,4 +88,17 @@ public class Venda implements Serializable {
 		this.itemList = itemList;
 	}
 
+	public Venda() {
+	}
+
+	public Venda(Long id, LocalDateTime inicio, LocalDateTime fim, Double cashbackTotal, Double total,
+			List<ItemVenda> itemList) {
+		this.id = id;
+		this.inicio = inicio;
+		this.fim = fim;
+		this.cashbackTotal = cashbackTotal;
+		this.total = total;
+		this.itemList = itemList;
+	}
+
 }
