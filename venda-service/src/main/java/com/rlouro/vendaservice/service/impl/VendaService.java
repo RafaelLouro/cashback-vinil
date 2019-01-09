@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang.Validate;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 
 import com.google.common.reflect.TypeToken;
@@ -37,7 +36,13 @@ public class VendaService extends BaseService implements IVendaService {
 		Venda entity = modelMapper.map(dto, Venda.class);
 		entity = vendaRepository.save(entity);
 
-		return modelMapper.map(entity, VendaDTO.class);
+		dto = modelMapper.map(entity, VendaDTO.class);
+
+		for (ItemVenda item : entity.getItemList()) {
+			dto.getDiscos().add(modelMapper.map(item.getDisco(), DiscoBasicDTO.class));
+		}
+
+		return dto;
 	}
 
 	@Override
