@@ -25,11 +25,8 @@ public class Venda implements Serializable {
 	@Column(name = "VE_ID")
 	private Long id;
 
-	@Column(name = "VE_DT_INICIO", nullable = false)
-	private LocalDateTime inicio;
-
-	@Column(name = "VE_DT_FIM")
-	private LocalDateTime fim;
+	@Column(name = "VE_DT_VENDA", nullable = false)
+	private LocalDateTime dataVenda;
 
 	@Column(name = "VE_VL_CASHBACK", nullable = false)
 	private Double cashbackTotal;
@@ -48,20 +45,12 @@ public class Venda implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDateTime getInicio() {
-		return inicio;
+	public LocalDateTime getDataVenda() {
+		return dataVenda;
 	}
 
-	public void setInicio(LocalDateTime inicio) {
-		this.inicio = inicio;
-	}
-
-	public LocalDateTime getFim() {
-		return fim;
-	}
-
-	public void setFim(LocalDateTime fim) {
-		this.fim = fim;
+	public void setDataVenda(LocalDateTime dataVenda) {
+		this.dataVenda = dataVenda;
 	}
 
 	public Double getCashbackTotal() {
@@ -91,11 +80,10 @@ public class Venda implements Serializable {
 	public Venda() {
 	}
 
-	public Venda(Long id, LocalDateTime inicio, LocalDateTime fim, Double cashbackTotal, Double total,
-			List<ItemVenda> itemList) {
+	public Venda(Long id, LocalDateTime dataVenda, Double cashbackTotal, Double total, List<ItemVenda> itemList) {
+		super();
 		this.id = id;
-		this.inicio = inicio;
-		this.fim = fim;
+		this.dataVenda = dataVenda;
 		this.cashbackTotal = cashbackTotal;
 		this.total = total;
 		this.itemList = itemList;

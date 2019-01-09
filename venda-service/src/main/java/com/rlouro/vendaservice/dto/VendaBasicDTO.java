@@ -6,9 +6,7 @@ public class VendaBasicDTO {
 
 	private Long id;
 
-	private LocalDateTime inicio;
-
-	private LocalDateTime fim;
+	private LocalDateTime dataVenda;
 
 	private Double cashbackTotal;
 
@@ -22,20 +20,12 @@ public class VendaBasicDTO {
 		this.id = id;
 	}
 
-	public LocalDateTime getInicio() {
-		return inicio;
+	public LocalDateTime getDataVenda() {
+		return dataVenda;
 	}
 
-	public void setInicio(LocalDateTime inicio) {
-		this.inicio = inicio;
-	}
-
-	public LocalDateTime getFim() {
-		return fim;
-	}
-
-	public void setFim(LocalDateTime fim) {
-		this.fim = fim;
+	public void setDataVenda(LocalDateTime dataVenda) {
+		this.dataVenda = dataVenda;
 	}
 
 	public Double getCashbackTotal() {

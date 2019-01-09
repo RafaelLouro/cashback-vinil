@@ -8,6 +8,10 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang.Validate;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import com.google.common.reflect.TypeToken;
@@ -63,7 +67,10 @@ public class VendaService extends BaseService implements IVendaService {
 		Type targetListType = new TypeToken<List<VendaBasicDTO>>() {
 		}.getType();
 
-		return modelMapper.map(vendaRepository.findAll(), targetListType);
+		Pageable pageable = PageRequest.of(filter.getPage(), filter.getLimit(), Sort.by(Order.desc("dataVenda")));
+
+		return modelMapper.map(vendaRepository.findByDataVendaBetween(filter.getInicio(), filter.getFim(), pageable),
+				targetListType);
 	}
 
 }

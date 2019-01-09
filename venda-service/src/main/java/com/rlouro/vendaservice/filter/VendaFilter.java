@@ -1,25 +1,27 @@
 package com.rlouro.vendaservice.filter;
 
-public class VendaFilter {
+import java.time.LocalDateTime;
 
-	private String dataInicio;
+public class VendaFilter extends PageableFilter {
 
-	private String dataFim;
+	private LocalDateTime inicio;
 
-	public String getDataInicio() {
-		return dataInicio;
+	private LocalDateTime fim;
+
+	public LocalDateTime getInicio() {
+		return inicio;
 	}
 
-	public void setDataInicio(String dataInicio) {
-		this.dataInicio = dataInicio;
+	public void setInicio(LocalDateTime inicio) {
+		this.inicio = inicio;
 	}
 
-	public String getDataFim() {
-		return dataFim;
+	public LocalDateTime getFim() {
+		return fim;
 	}
 
-	public void setDataFim(String dataFim) {
-		this.dataFim = dataFim;
+	public void setFim(LocalDateTime fim) {
+		this.fim = fim;
 	}
 
 }

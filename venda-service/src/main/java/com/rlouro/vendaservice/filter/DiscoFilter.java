@@ -1,6 +1,6 @@
 package com.rlouro.vendaservice.filter;
 
-public class DiscoFilter {
+public class DiscoFilter extends PageableFilter {
 
 	private String genero;
 

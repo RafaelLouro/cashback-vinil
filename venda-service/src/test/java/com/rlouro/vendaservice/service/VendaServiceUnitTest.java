@@ -41,7 +41,7 @@ public class VendaServiceUnitTest extends BaseUnitTest {
 				new Disco(ID_TEST, "disco1", 10.0, null), 10.0);
 		List<ItemVenda> itemList = new ArrayList<>();
 		itemList.add(itemVenda);
-		venda = new Venda(ID_TEST, LocalDateTime.now(), LocalDateTime.now(), 10.0, 10.0, itemList);
+		venda = new Venda(ID_TEST, LocalDateTime.now(), 10.0, 10.0, itemList);
 	}
 
 	@Test
