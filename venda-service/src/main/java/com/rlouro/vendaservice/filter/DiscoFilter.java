@@ -2,13 +2,14 @@ package com.rlouro.vendaservice.filter;
 
 public class DiscoFilter extends PageableFilter {
 
-	private String genero;
+    private Long generoId;
 
-	public String getGenero() {
-		return genero;
-	}
+    public Long getGeneroId() {
+        return generoId;
+    }
 
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
+    public void setGeneroId(Long generoId) {
+        this.generoId = generoId;
+    }
+
 }
