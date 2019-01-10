@@ -7,9 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -31,6 +34,10 @@ public class Cashback implements Serializable {
 
 	@Column(name = "CB_VL_PORCENTAGEM", nullable = false)
 	private Double porcentagem;
+	
+	@JoinColumn(name = "GE_ID", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Genero genero;
 
 	public Long getId() {
 		return id;
@@ -54,5 +61,13 @@ public class Cashback implements Serializable {
 
 	public void setPorcentagem(Double porcentagem) {
 		this.porcentagem = porcentagem;
+	}
+
+	public Genero getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Genero genero) {
+		this.genero = genero;
 	}
 }

@@ -3,7 +3,9 @@ package com.rlouro.vendaservice.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import javax.inject.Inject;
+
 import org.apache.commons.lang.Validate;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
+
 import com.rlouro.vendaservice.dto.DiscoBasicDTO;
 import com.rlouro.vendaservice.dto.VendaBasicDTO;
 import com.rlouro.vendaservice.dto.VendaDTO;
@@ -20,68 +23,72 @@ import com.rlouro.vendaservice.filter.VendaFilter;
 import com.rlouro.vendaservice.model.ItemVenda;
 import com.rlouro.vendaservice.model.Venda;
 import com.rlouro.vendaservice.repository.VendaRepository;
+import com.rlouro.vendaservice.service.ICashbackService;
 import com.rlouro.vendaservice.service.IVendaService;
 
 @Service
 public class VendaService extends BaseService implements IVendaService {
 
-    private final VendaRepository vendaRepository;
+	private final VendaRepository vendaRepository;
 
-    @Inject
-    public VendaService(VendaRepository vendaRepository) {
-        super(new ModelMapper());
-        this.vendaRepository = vendaRepository;
-    }
+	private final ICashbackService cashbackService;
 
-    @Override
-    public VendaDTO save(VendaDTO dto) {
-        Venda entity = modelMapper.map(dto, Venda.class);
-        entity = vendaRepository.save(entity);
+	@Inject
+	public VendaService(VendaRepository vendaRepository, ICashbackService cashbackService) {
+		super(new ModelMapper());
+		this.vendaRepository = vendaRepository;
+		this.cashbackService = cashbackService;
+	}
 
-        return toVendaDTO(entity);
-    }
+	@Override
+	public VendaDTO save(VendaDTO dto) {
+		Venda entity = modelMapper.map(dto, Venda.class);
+		entity = vendaRepository.save(entity);
 
-    @Override
-    public VendaDTO findById(Long id) {
-        Validate.notNull(id, GET_ID_NAO_INFORMADO_MESSAGE);
+		return toVendaDTO(entity);
+	}
 
-        Optional<Venda> opEntity = vendaRepository.findById(id);
+	@Override
+	public VendaDTO findById(Long id) {
+		Validate.notNull(id, GET_ID_NAO_INFORMADO_MESSAGE);
 
-        if (opEntity.isPresent()) {
-            return toVendaDTO(opEntity.get());
-        } else {
-            return null;
-        }
-    }
+		Optional<Venda> opEntity = vendaRepository.findById(id);
 
-    @Override
-    public Page<VendaBasicDTO> findByFilter(VendaFilter filter) {
-        validaFilter(filter);
-        Validate.notNull(filter.getInicio(), GET_FILTRO_NAO_PREENCHIDO_MESSAGE);
-        Validate.notNull(filter.getFim(), GET_FILTRO_NAO_PREENCHIDO_MESSAGE);
+		if (opEntity.isPresent()) {
+			return toVendaDTO(opEntity.get());
+		} else {
+			return null;
+		}
+	}
 
-        Pageable pageable = PageRequest.of(filter.getPage(), filter.getLimit(),
-                Sort.by(Order.desc("dataVenda"), Order.asc("id")));
+	@Override
+	public Page<VendaBasicDTO> findByFilter(VendaFilter filter) {
+		validaFilter(filter);
+		Validate.notNull(filter.getInicio(), GET_FILTRO_NAO_PREENCHIDO_MESSAGE);
+		Validate.notNull(filter.getFim(), GET_FILTRO_NAO_PREENCHIDO_MESSAGE);
 
-        Page<Venda> entityPage = vendaRepository.findByDataVendaBetween(filter.getInicio(), filter.getFim(), pageable);
+		Pageable pageable = PageRequest.of(filter.getPage(), filter.getLimit(),
+				Sort.by(Order.desc("dataVenda"), Order.asc("id")));
 
-        List<VendaBasicDTO> dtoList = new ArrayList<>();
+		Page<Venda> entityPage = vendaRepository.findByDataVendaBetween(filter.getInicio(), filter.getFim(), pageable);
 
-        for (Venda venda : entityPage) {
-            dtoList.add(modelMapper.map(venda, VendaBasicDTO.class));
-        }
+		List<VendaBasicDTO> dtoList = new ArrayList<>();
 
-        return new PageImpl<>(dtoList, pageable, entityPage.getTotalElements());
-    }
+		for (Venda venda : entityPage) {
+			dtoList.add(modelMapper.map(venda, VendaBasicDTO.class));
+		}
 
-    private VendaDTO toVendaDTO(Venda entity) {
-        VendaDTO dto = modelMapper.map(entity, VendaDTO.class);
+		return new PageImpl<>(dtoList, pageable, entityPage.getTotalElements());
+	}
 
-        for (ItemVenda item : entity.getItemList()) {
-            dto.getDiscos().add(modelMapper.map(item.getDisco(), DiscoBasicDTO.class));
-        }
+	private VendaDTO toVendaDTO(Venda entity) {
+		VendaDTO dto = modelMapper.map(entity, VendaDTO.class);
 
-        return dto;
-    }
+		for (ItemVenda item : entity.getItemList()) {
+			dto.getDiscos().add(modelMapper.map(item.getDisco(), DiscoBasicDTO.class));
+		}
+
+		return dto;
+	}
 
 }
