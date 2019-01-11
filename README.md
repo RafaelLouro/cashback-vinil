@@ -35,11 +35,11 @@ docker-compose up
 
 A aplicação usa REST e os endpoints são:
 
-##Discos:
+***Discos:***
 - GET por Identificador - http://localhost:8080/venda-service/disco/{id}
 - GET paginado com filtro de genero - http://localhost:8080/venda-service/disco?page=0&limit=10&generoId=1
 
-##Vendas:
+***Vendas:***
 - POST para cadastro - http://localhost:8080/venda-service/venda
 	- O corpo da request deve ter os identificadores dos discos em formato JSON:
 ```
