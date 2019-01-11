@@ -4,7 +4,6 @@ delete from disco;
 delete from cashback;
 delete from genero;
 
-
 insert into genero values (1, "pop");
 insert into genero values (2, "mpb");
 insert into genero values (3, "classic");
@@ -41,3 +40,19 @@ insert into cashback values (25, "WEDNESDAY",	0.15, 4);
 insert into cashback values (26, "THURSDAY",	0.15, 4);
 insert into cashback values (27, "FRIDAY",		0.20, 4);
 insert into cashback values (28, "SATURDAY",	0.40, 4);
+
+insert into disco values (1, "Rihanna - Loud",	12.00, 1);
+insert into disco values (2, "Maroon 5 - V",	14.00, 1);
+insert into disco values (3, "Taylor Swift - Red",	16.00, 1);
+
+insert into disco values (4, "Elis Regina - Falso Brilhante",	18.00, 2);
+insert into disco values (5, "Roupa Nova - Todo Amor do Mundo",	20.00, 2);
+insert into disco values (6, "Caetano Veloso - Tropicália 2",	22.00, 2);
+
+insert into disco values (7, "Bach - Cellos Suites",	18.00, 3);
+insert into disco values (8, "Beethoven - Paino Sonatas",	20.00, 3);
+insert into disco values (9, "Chopin - Nocturne in F Minor",	22.00, 3);
+
+insert into disco values (10, "Rammstein - Rosenrot",	24.00, 4);
+insert into disco values (11, "Within Temptation - The Unforgiving",	26.00, 4);
+insert into disco values (12, "AC/DC - Back in Black",	28.00, 4);
