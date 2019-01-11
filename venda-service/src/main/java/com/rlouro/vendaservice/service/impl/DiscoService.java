@@ -2,6 +2,7 @@ package com.rlouro.vendaservice.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import javax.inject.Inject;
 import org.apache.commons.lang.Validate;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.rlouro.vendaservice.dto.DiscoBasicDTO;
 import com.rlouro.vendaservice.dto.DiscoDTO;
 import com.rlouro.vendaservice.filter.DiscoFilter;
@@ -21,6 +23,7 @@ import com.rlouro.vendaservice.repository.DiscoRepository;
 import com.rlouro.vendaservice.service.IDiscoService;
 
 @Service
+@Transactional(readOnly = true)
 public class DiscoService extends BaseService implements IDiscoService {
 
     private final DiscoRepository discoRepository;
@@ -32,6 +35,7 @@ public class DiscoService extends BaseService implements IDiscoService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public DiscoDTO save(DiscoDTO dto) {
         Disco entity = modelMapper.map(dto, Disco.class);
         entity = discoRepository.save(entity);
@@ -41,12 +45,23 @@ public class DiscoService extends BaseService implements IDiscoService {
 
     @Override
     public DiscoDTO findById(Long id) {
+        Disco entity = findEntityById(id);
+
+        if (Objects.isNull(entity)) {
+            return null;
+        }
+
+        return modelMapper.map(entity, DiscoDTO.class);
+    }
+
+    @Override
+    public Disco findEntityById(Long id) {
         Validate.notNull(id, GET_ID_NAO_INFORMADO_MESSAGE);
 
         Optional<Disco> opEntity = discoRepository.findById(id);
 
         if (opEntity.isPresent()) {
-            return modelMapper.map(opEntity.get(), DiscoDTO.class);
+            return opEntity.get();
         } else {
             return null;
         }

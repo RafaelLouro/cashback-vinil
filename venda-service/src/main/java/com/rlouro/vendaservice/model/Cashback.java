@@ -2,7 +2,6 @@ package com.rlouro.vendaservice.model;
 
 import java.io.Serializable;
 import java.time.DayOfWeek;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,54 +19,64 @@ import javax.validation.constraints.Size;
 @Table(name = "CASHBACK")
 public class Cashback implements Serializable {
 
-	private static final long serialVersionUID = 2066603960607520531L;
+    private static final long serialVersionUID = 2066603960607520531L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "CB_ID")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CB_ID")
+    private Long id;
 
-	@Size(max = 10)
-	@Enumerated(value = EnumType.STRING)
-	@Column(name = "CB_IN_DIA", nullable = false)
-	private DayOfWeek diaSemana;
+    @Size(max = 10)
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "CB_IN_DIA", nullable = false)
+    private DayOfWeek diaSemana;
 
-	@Column(name = "CB_VL_PORCENTAGEM", nullable = false)
-	private Double porcentagem;
-	
-	@JoinColumn(name = "GE_ID", nullable = false)
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Genero genero;
+    @Column(name = "CB_VL_PORCENTAGEM", nullable = false)
+    private Double porcentagem;
 
-	public Long getId() {
-		return id;
-	}
+    @JoinColumn(name = "GE_ID", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Genero genero;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public DayOfWeek getDiaSemana() {
-		return diaSemana;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setDiaSemana(DayOfWeek diaSemana) {
-		this.diaSemana = diaSemana;
-	}
+    public DayOfWeek getDiaSemana() {
+        return diaSemana;
+    }
 
-	public Double getPorcentagem() {
-		return porcentagem;
-	}
+    public void setDiaSemana(DayOfWeek diaSemana) {
+        this.diaSemana = diaSemana;
+    }
 
-	public void setPorcentagem(Double porcentagem) {
-		this.porcentagem = porcentagem;
-	}
+    public Double getPorcentagem() {
+        return porcentagem;
+    }
 
-	public Genero getGenero() {
-		return genero;
-	}
+    public void setPorcentagem(Double porcentagem) {
+        this.porcentagem = porcentagem;
+    }
 
-	public void setGenero(Genero genero) {
-		this.genero = genero;
-	}
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    public Cashback() {
+    }
+
+    public Cashback(Long id, @Size(max = 10) DayOfWeek diaSemana, Double porcentagem, Genero genero) {
+        this.id = id;
+        this.diaSemana = diaSemana;
+        this.porcentagem = porcentagem;
+        this.genero = genero;
+    }
 }

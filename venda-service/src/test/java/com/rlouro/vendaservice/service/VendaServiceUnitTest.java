@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +24,9 @@ import com.rlouro.vendaservice.dto.DiscoBasicDTO;
 import com.rlouro.vendaservice.dto.VendaBasicDTO;
 import com.rlouro.vendaservice.dto.VendaDTO;
 import com.rlouro.vendaservice.filter.VendaFilter;
+import com.rlouro.vendaservice.model.Cashback;
 import com.rlouro.vendaservice.model.Disco;
+import com.rlouro.vendaservice.model.Genero;
 import com.rlouro.vendaservice.model.ItemVenda;
 import com.rlouro.vendaservice.model.ItemVendaId;
 import com.rlouro.vendaservice.model.Venda;
@@ -39,14 +42,24 @@ public class VendaServiceUnitTest extends BaseUnitTest {
     @Mock
     private VendaRepository vendaRepository;
 
+    @Mock
+    private IDiscoService discoService;
+
+    @Mock
+    private ICashbackService cashbackService;
+
     private Venda venda;
+    private Disco disco;
+    private Cashback cashback;
 
     private VendaFilter filter;
 
     @Before
     public void setup() {
-        ItemVenda itemVenda = new ItemVenda(new ItemVendaId(ID_TEST, ID_TEST), venda,
-                new Disco(ID_TEST, "disco1", 10.0, null), 10.0);
+        cashback = new Cashback(ID_TEST, DayOfWeek.SUNDAY, 0.1, null);
+        disco = new Disco(ID_TEST, "disco1", 10.0, new Genero(ID_TEST, "pop"));
+
+        ItemVenda itemVenda = new ItemVenda(new ItemVendaId(ID_TEST, ID_TEST), venda, disco, 10.0);
         List<ItemVenda> itemList = new ArrayList<>();
         itemList.add(itemVenda);
         venda = new Venda(ID_TEST, LocalDateTime.now(), 10.0, 10.0, itemList);
@@ -59,8 +72,16 @@ public class VendaServiceUnitTest extends BaseUnitTest {
     @Test
     public void saveDiscoValido() {
         Mockito.when(vendaRepository.save(Mockito.any(Venda.class))).thenReturn(venda);
+        Mockito.when(discoService.findEntityById(Mockito.anyLong())).thenReturn(disco);
+        Mockito.when(cashbackService.findByGeneroId(Mockito.anyLong())).thenReturn(cashback);
 
-        VendaDTO returned = vendaService.save(new VendaDTO());
+        VendaDTO dtoToSave = new VendaDTO();
+        dtoToSave.setDataVenda(LocalDateTime.now());
+        DiscoBasicDTO discoBasicDTO = new DiscoBasicDTO();
+        discoBasicDTO.setId(ID_TEST);
+        dtoToSave.setDiscos(Arrays.asList(discoBasicDTO));
+
+        VendaDTO returned = vendaService.save(dtoToSave);
 
         assertNotNull(returned);
         assertNotNull(returned.getId());
